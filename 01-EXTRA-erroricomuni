@@ -1,0 +1,294 @@
+Dispensa: errori comuni nel versionamento con Git/GitHub
+
+Questa dispensa raccoglie gli errori più frequenti che studenti e team commettono usando Git e GitHub, con esempi praici, rischi e contromisure immediatamente applicabili. 
+È pensata come materiale di riferimento rapido durante lo sviluppo quotidiano.
+
+1) Fondamentali da chiarire subito
+
+Git vs GitHub
+
+Git è il sistema di versionamento distribuito (in locale e remoto).
+
+GitHub è una piattaforma che ospita repository Git, PR, Issues, Actions, ecc.
+
+Ramo di default
+
+Oggi spesso è main (non più master).
+
+Repository “pulito”
+
+.gitignore, licenza, README, sicurezza delle chiavi/segreti, protezioni branch: vanno impostati all’inizio.
+
+2) Errori in fase di inizializzazione
+
+2.1 Creare il repo locale e remoto in modo incoerente
+
+Errore tipico: inizializzare sia in locale che su GitHub con commit diversi e poi cercare di collegarli a posteriori.Rischio: conflitti iniziali, storia sporca.Correzione:
+
+git init
+# aggiungi file, poi
+git add .
+git commit -m "chore: initialize project"
+git branch -M main
+git remote add origin https://github.com/org/proj.git
+git push -u origin main
+
+2.2 Dimenticare il .gitignore
+
+Errore tipico: tracciare file generati (build, log, dipendenze) o segreti.Rischio: repo pesante, leak, conflitti continui.Correzione: definire .gitignore fin da subito (vedi § 9.3 per esempi).
+
+2.3 Commettere file binari o artefatti giganti
+
+Errore tipico: aggiungere video, dataset o build da centinaia di MB.Rischio: repo lento/ingestibile; limiti GitHub.Correzione: usa Git LFS o storage esterni; non versionare artefatti.
+
+3) Errori sui branch
+
+3.1 Lavorare direttamente su main
+
+Errore tipico: committare feature e fix su main.Rischio: instabilità continua, nessun code review chiaro.Correzione: crea branch per feature/bugfix e apri PR.
+
+3.2 Strategie di branching non condivise
+
+Errore tipico: ognuno fa come vuole (naming, flussi).Rischio: confusione, PR enormi, release caotiche.Correzione: adotta una strategia (es. Trunk-Based o Git Flow leggero) e documentala nel README/CONTRIBUTING.
+
+3.3 Branch troppo longevi
+
+Errore tipico: feature branch vivi per settimane senza sincronizzazione.Rischio: conflitti enormi, integrazione tardiva.Correzione: fai rebase/merge frequenti da main e rilascia PR piccole.
+
+4) Errori sui commit
+
+4.1 Commit monolitici ("big bang")
+
+Errore tipico: un commit con centinaia di file cambiati e più feature.Rischio: review impossibile, rollback doloroso.Correzione: committi piccoli e atomici, ciascuno con uno scopo.
+
+4.2 Messaggi di commit vaghi
+
+Errore tipico: "fix", "update", "final".Rischio: storia incomprensibile, blame impreciso.Correzione: messaggi descrittivi (imperativo breve + contesto).Esempio: feat(auth): add JWT refresh token flow.
+
+4.3 Committare segreti
+
+Errore tipico: API key, token, .env.Rischio: breach istantaneo, costi e danni.Correzione: usa .gitignore, GitHub Secrets/Actions, Vault. Se già pubblicati: revoca immediata, ruota le chiavi, ripulisci la storia (vedi § 9.4).
+
+4.4 Dimenticare git add -p e git restore --staged
+
+Errore tipico: includere file non pronti nel commit.Correzione: usa il staging selettivo:
+
+git add -p              # seleziona hunk
+git restore --staged <file>  # rimuove dallo staging
+
+5) Errori su merge, rebase e conflitti
+
+5.1 Usare rebase senza capirlo
+
+Errore tipico: riscrivere la storia remota o di branch condivisi.Rischio: divergenze, push forzati pericolosi.Correzione: usa rebase su branch personali prima del push; non su main remoto già condiviso.
+
+5.2 git push --force su branch condivisi
+
+Errore tipico: forzare cancellando il lavoro altrui.Correzione: evita; se necessario usa --force-with-lease e concorda col team.
+
+5.3 Risoluzione conflitti “a caso”
+
+Errore tipico: accettare la prima versione che compila.Rischio: bug silenziosi.Correzione: capire l’intento delle due modifiche, testare dopo il merge, chiedere al collega in dubbio.
+
+5.4 PR enormi
+
+Errore tipico: 2.000+ linee in una PR.Rischio: review superficiale, ritardi.Correzione: PR piccole, tematiche, con checklist e descrizione chiara.
+
+6) Errori su GitHub (PR, Issues, Review)
+
+6.1 Nessuna descrizione/contesto nelle PR
+
+Errore tipico: aprire PR vuote di testo.Correzione: usa template PR con: scopo, cambi principali, issue collegata, screenshot/test.
+
+6.2 Saltare il code review
+
+Errore tipico: self-merge continuo.Correzione: regole di protezione branch (almeno 1 review, status checks verdi).
+
+6.3 Confondere fork e branch sul repo principale
+
+Errore tipico: aprire PR da fork non necessario con segreti/Actions non disponibili.Correzione: se sei nel team, crea branch sul repo; il fork serve ai contributi esterni.
+
+6.4 Non collegare Issues e PR
+
+Errore tipico: storia non tracciabile.Correzione: in PR descrizione usa Closes #123 o Fixes #123.
+
+7) Errori su release, tagging e versionamento
+
+7.1 Tag non coerenti
+
+Errore tipico: v1, poi 1.0.1, poi release-final.Correzione: adotta SemVer (vMAJOR.MINOR.PATCH) e documentalo.
+
+7.2 Nessun CHANGELOG
+
+Errore tipico: il team non sa cosa cambia da una release all’altra.Correzione: mantieni CHANGELOG.md (manuale o generato da commit convenzionali).
+
+7.3 Artefatti di release dentro il repo
+
+Errore tipico: caricare zip/binari direttamente nel repo.Correzione: usa GitHub Releases per allegare binari; il repo contiene solo sorgente.
+
+8) Errori CI/CD e GitHub Actions
+
+8.1 Segreti nelle Actions esposti ai fork
+
+Errore tipico: workflow che espone ${{ secrets.* }} in log o a PR da fork.Correzione: usa pull_request_target con attenzione, maschera output, limita permessi, attiva required approvals.
+
+8.2 Trigger sbagliati
+
+Errore tipico: workflow che parte su ogni push/pull_request in tutti i branch.Correzione: filtra con on:, paths:, branches: per ridurre costi/noise.
+
+8.3 Cache e dipendenze non fissate
+
+Errore tipico: build fluttuanti.Correzione: usa lockfile e versioni pin (^/~ consapevoli), cache con chiavi stabili.
+
+9) Errori di igiene del repo
+
+9.1 Line endings e permessi file
+
+Errore tipico: CRLF/LF misti, bit eseguibile errato.Correzione: .gitattributes coerente (es. * text=auto), normalizza permessi.
+
+9.2 Submodule usati a cuor leggero
+
+Errore tipico: aggiungere submodule per dipendenze banali.Correzione: valuta package manager; se usi submodule, documenta versioni e update.
+
+9.3 Esempi .gitignore
+
+- Node/JS
+
+node_modules/
+dist/
+coverage/
+.env
+*.log
+.DS_Store
+
+- Python
+
+__pycache__/
+*.pyc
+.env
+.venv/
+build/
+dist/
+
+- Java
+
+.target/
+.classpath
+.project
+.settings/
+*.class
+*.log
+
+9.4 Pulizia storia da segreti
+
+Passi:
+
+Revoca/ruota subito i segreti compromessi.
+
+Rimuovi i file e riscrivi la storia:
+
+git filter-repo --path .env --invert-paths
+# oppure BFG Repo-Cleaner
+
+Forza il push in modo coordinato e avvisa il team.
+
+10) Sicurezza e permessi
+
+10.1 Nessuna protezione su main
+
+Errore: push libero, history re-write.Correzione: Branch Protection Rules (review obbligatorie, status checks, no force push).
+
+10.2 Collaboratori con permessi eccessivi
+
+Errore: tutti “Admin”.Correzione: principio del minimo privilegio (Read/Triage/Write/Maintain/Admin).
+
+10.3 Dipendenze vulnerabili ignorate
+
+Errore: avvisi Dependabot rimossi.Correzione: abilita update automatici e security advisories.
+
+11) Antipattern organizzativi
+
+Nessun README/CONTRIBUTING → onboarding lento.
+
+Nessuna convenzione di naming → branch e tag incoerenti.
+
+Assenza di roadmap/issues → priorità confuse.
+
+PR senza checklist → dimenticanze ricorrenti.
+
+12) Checklist operative pronte all’uso
+
+Prima di creare il repo
+
+
+
+Per ogni feature
+
+
+
+Per ogni release
+
+
+
+Sicurezza
+
+
+
+13) Template utili
+
+Commit message (Conventional Commits)
+
+<type>(scope): <descrizione>
+
+<body opzionale: motivazione, contesto, breaking changes>
+
+Esempi di type: feat, fix, docs, chore, refactor, test, build.
+
+Branch namingfeat/<breve-scope>, fix/<issue-id>, chore/<task>
+
+PR template (bozza)
+
+## Scopo
+
+## Cambi principali
+
+## Come testare
+
+## Issue correlate
+Closes #123
+
+## Screenshot / Log
+
+## Checklist
+- [ ] Build OK
+- [ ] Test OK
+- [ ] Documentazione aggiornata
+
+14) Errori “da esame” (rapida rassegna)
+
+Committare su main senza PR  Da evitare
+
+Messaggi di commit generici  Da evitare
+
+Ignorare .gitignore  Da evitare
+
+Forzare push su branch condivisi  Da evitare
+
+Dimenticare tag coerenti e CHANGELOG  Da evitare
+
+Lasciare segreti nel repo  Da evitare (revoca immediata)
+
+15) Esercizi pratici (facoltativi)
+
+Ripulisci una PR enorme: dividi in 3–5 PR tematiche con descrizioni chiare.
+
+Scrivi 5 commit atomici partendo da modifiche miste, usando git add -p.
+
+Configura Branch Protection Rules su un repo di prova e prova un flusso PR+review.
+
+Introduci SemVer: crea tag v1.0.0 e un CHANGELOG minimale.
+
+16) Conclusioni
+
+La qualità del versionamento nasce da poche regole chiare: branch per feature, commit piccoli e descrittivi, PR ben documentate, protezioni su main, gestione rigorosa dei segreti e release tracciabili. Applicare costantemente queste pratiche riduce conflitti, accelera le review e rende le release affidabili.
+
