@@ -41,10 +41,7 @@ if prompt := st.chat_input("What is up?"):
 
     stream = client.chat.completions.create(
         model=DEPLOYMENT,
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": prompt}
-        ],
+        messages=st.session_state.messages,
         max_tokens=300,
         stream=True
 )
