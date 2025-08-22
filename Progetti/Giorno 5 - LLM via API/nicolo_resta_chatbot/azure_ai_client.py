@@ -6,14 +6,13 @@ import os
 import dotenv
 
 dotenv.load_dotenv()
+endpoint = os.getenv("AZURE_INFERENCE_SDK_ENDPOINT")
+key = os.getenv("AZURE_INFERENCE_SDK_KEY")
 
 class AzureAIClient:
-    def __init__(self):
-
-        endpoint = os.getenv("AZURE_INFERENCE_SDK_ENDPOINT")
-        key = os.getenv("AZURE_INFERENCE_SDK_KEY")
-
-        self.model_name = "gpt-4.1-mini"
+    
+    def __init__(self, key:str = key, endpoint:str = endpoint, model_name: str = "gpt-4.1-mini"):
+        self.model_name = model_name
 
         self.client = ChatCompletionsClient(
             endpoint=endpoint, 
