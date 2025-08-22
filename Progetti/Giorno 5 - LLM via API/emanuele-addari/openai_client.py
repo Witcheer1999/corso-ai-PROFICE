@@ -6,9 +6,9 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 load_dotenv()
 
 class Ciatgpt:
-    def __init__(self):
-        self.api_key = os.getenv("AZURE_OPENAI_API_KEY")
-        self.connection_string = os.getenv("AZURE_OPENAI_ENDPOINT")
+    def __init__(self, api_key, conn_str):
+        self.api_key = api_key
+        self.connection_string = conn_str
         self.deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")
 
         self.client = AzureOpenAI(
@@ -17,6 +17,14 @@ class Ciatgpt:
             azure_endpoint=self.connection_string
         )
         self.conversation_history = []
+
+    def check_keys(self):
+        missing_keys = [key for key in ["AZURE_OPENAI_API_KEY", "AZURE_OPENAI_ENDPOINT", "AZURE_OPENAI_DEPLOYMENT_NAME"] if not os.getenv(key)]
+        if missing_keys:
+            raise ValueError(f"Missing environment variables: {', '.join(missing_keys)}")
+        if not self.client.models.list():
+            raise ValueError("Wrong keys")
+
 
     @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=1, max=10))
     def make_api_call(self):
