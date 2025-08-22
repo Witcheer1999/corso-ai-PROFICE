@@ -32,9 +32,9 @@ with st.form("connection_form"):
         
         try:
 
-            client.models.list()
+            returned_models = client.models.list()
             
-            if deployment_name not in [m.id for m in available_models.data]:
+            if deployment_name not in [m.id for m in returned_models.data]:
                 st.error(f"Model '{deployment_name}' is not available. Please check the model name.")
 
         except BadRequestError as e:
