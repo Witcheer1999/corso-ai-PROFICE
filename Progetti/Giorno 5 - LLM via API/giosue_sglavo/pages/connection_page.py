@@ -15,9 +15,9 @@ if "client" not in st.session_state:
 
 # Creazione del form
 with st.form("connection_form"):
-    api_version = st.text_input("API version", value="2025-01-01-preview")
-    subscription_key = st.text_input("Subscription key", value="988oydbOEbkuVr92EZf2CpGKHs5FuPoNksa7p6eyB7M8oKuumMOcJQQJ99BHACYeBjFXJ3w3AAAAACOGYDOO")
-    endpoint = st.text_input("Endpoint", value="https://instance-foundry-0.cognitiveservices.azure.com/openai/deployments/gpt-35-turbo/chat/completions?api-version=2025-01-01-preview")
+    api_version = st.text_input("API version")
+    subscription_key = st.text_input("Subscription key")
+    endpoint = st.text_input("Endpoint")
 
     # Bottone per inviare il form
     submitted = st.form_submit_button("Connect")
