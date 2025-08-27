@@ -1,0 +1,7 @@
+agents:
+  web_agent:
+    role: "Esperto in ricerche web e sintesi informazioni"
+    tools:
+      - WebsiteSearchTool
+      - ScrapeWebsiteTool
+    verbose: true

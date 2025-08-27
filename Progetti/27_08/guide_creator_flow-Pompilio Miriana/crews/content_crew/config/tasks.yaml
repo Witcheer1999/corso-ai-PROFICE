@@ -1,0 +1,17 @@
+write_section_task:
+  description: >
+    Write a comprehensive section on the topic: "{section_title}"
+    ...
+  expected_output: >
+    A well-structured, comprehensive section in Markdown format ...
+  agent: content_writer
+
+review_section_task:
+  description: >
+    Review and improve the following section on "{section_title}":
+    ...
+  expected_output: >
+    An improved, polished version of the section ...
+  agent: content_reviewer
+  context:
+    - write_section_task
