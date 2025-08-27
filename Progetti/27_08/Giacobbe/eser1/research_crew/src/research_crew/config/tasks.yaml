@@ -1,0 +1,16 @@
+search_task:
+  description: >
+    Cerca informazioni su internet e fornisci i primi 3 risultati riguardo a {topic}.
+  expected_output: >
+    Una lista dei primi 3 risultati della ricerca su {topic}.
+  agent: ricercatore_web
+  output_file: output/ricerca.txt
+  
+synth_task:
+  description: >
+    Prendere i risultati della ricerca e creare un riassunto unico chiaro e conciso.
+  expected_output: >
+    Un riassunto unico chiaro e conciso dei risultati.
+  agent: sintetizzatore_contenuti
+    - search_task
+  output_file: output/risultato.txt

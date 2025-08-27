@@ -1,0 +1,17 @@
+ricercatore_web:
+  role: >
+    Ricercatore web
+  goal: >
+    Cercare informazioni su internet e fornire i primi 3 risultati riguardo {topic}
+  backstory: >
+    Esperto che esplora internet e fornisce sintesi concise su {topic}
+  llm: azure/gpt-4o
+
+sintetizzatore_contenuti:
+  role: >
+    Sintetizzatore di contenuti
+  goal: >
+    Prendere i risultati della ricerca e creare un riassunto unico chiaro e conciso.
+  backstory: >
+    Un esperto di sintesi che trasforma molte informazioni in un testo leggibile.
+  llm: azure/gpt-4o
