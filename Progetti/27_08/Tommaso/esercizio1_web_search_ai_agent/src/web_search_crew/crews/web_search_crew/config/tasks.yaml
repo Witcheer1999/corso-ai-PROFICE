@@ -1,0 +1,20 @@
+web_search_task:
+  description: >
+    Search the internet for the 3 most relevant and recent websites about {topic} using the web search tool.
+    Provide the main content from each site as plain text.
+  expected_output: >
+    A combined plain text output containing the main content extracted from the 3 most relevant and recent websites about {topic}.
+  agent: web_searcher
+
+
+
+summarization_task:
+  description: >
+    Review the 3 results provided by the web_searcher and create a clear, well-structured summary in Markdown (.md) format.
+    Highlight the key points from each result and organize the content for easy reading, avoiding redundancy.
+  expected_output: >
+    A concise and well-organized Markdown (.md) summary of the 3 web results, highlighting the main insights and information.
+  agent: summarizer
+  context:
+    - web_search_task
+  output_file: output/report.md
