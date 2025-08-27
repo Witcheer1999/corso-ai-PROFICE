@@ -1,0 +1,8 @@
+research_task:
+  description: >
+    The user will input a question or a sum.
+    Employ the correct tools for the job.
+    Request: {topic}
+  expected_output: >
+    The output of the tools used to solve the user's request.
+  agent: worker
