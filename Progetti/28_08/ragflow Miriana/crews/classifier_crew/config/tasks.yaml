@@ -1,0 +1,20 @@
+classify_question_task:
+  description: >
+    Analizza questa domanda e classifica il suo dominio: "{question}"
+
+    ISTRUZIONI:
+    1. Leggi attentamente la domanda dell'utente
+    2. Determina se la domanda riguarda:
+       - MEDICINA: sintomi, malattie, farmaci, salute, diagnosi, terapie, anatomia, fisiologia
+       - GENERALE: tutto il resto (tecnologia, storia, geografia, sport, intrattenimento, etc.)
+    3. Rispondi SOLO con una di queste parole: "MEDICAL" o "GENERAL"
+    4. Non aggiungere spiegazioni o commenti
+    
+    ESEMPI:
+    - "Quali sono i sintomi dell'influenza?" → MEDICAL
+    - "Come si cura il diabete?" → MEDICAL  
+    - "Che tempo fa oggi?" → GENERAL
+    - "Chi ha vinto il mondiale 2022?" → GENERAL
+  expected_output: >
+    Una singola parola: "MEDICAL" o "GENERAL"
+  agent: domain_classifier

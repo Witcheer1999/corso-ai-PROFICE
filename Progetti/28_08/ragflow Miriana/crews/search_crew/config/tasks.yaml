@@ -1,0 +1,15 @@
+search_and_summarize_task:
+  description: >
+      Esegui una ricerca completa per: "{query}"
+
+      ISTRUZIONI:
+      1. Usa il tool search_web per cercare informazioni su "{query}"
+      2. Analizza i 3 risultati ottenuti
+      3. Estrai le informazioni più importanti da ciascun risultato
+      4. Crea un riassunto strutturato che includa:
+         - Una panoramica generale (2-3 frasi)
+         - I punti chiave di ogni risultato
+         - Una breve conclusione finale
+  expected_output: >
+      Fornisci un riassunto dettagliato e strutturato delle informazioni trovate su "{query}".
+  agent: web_research_specialist

@@ -1,0 +1,19 @@
+rag_search_task:
+  description: >
+    Cerca informazioni mediche nel database locale per rispondere a: "{question}"
+
+    ISTRUZIONI:
+    1. Usa il tool search_rag per cercare informazioni su "{question}"
+    2. Analizza attentamente i risultati ottenuti dal database medico
+    3. Fornisci una risposta completa e accurata basata solo sui dati trovati
+    4. Includi sempre le citazioni delle fonti utilizzate
+    5. Se l'informazione non è disponibile nel database, comunicalo chiaramente
+    
+    IMPORTANTE:
+    - NON inventare o aggiungere informazioni non presenti nel database
+    - Mantieni un tono professionale e medico
+    - Cita sempre le fonti nel formato [fonte:nomefile]
+  expected_output: >
+    Una risposta medica dettagliata con citazioni delle fonti, basata esclusivamente 
+    sui dati presenti nel database medico locale.
+  agent: medical_specialist
