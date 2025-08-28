@@ -1,0 +1,45 @@
+detect_math_task:
+  description: >
+    Analizza questa domanda e determina se richiede matematica: "{question}"
+
+    ISTRUZIONI:
+    1. Leggi attentamente la domanda
+    2. Determina se richiede:
+       - MATH: calcoli, equazioni, formule, operazioni numeriche, geometria, 
+               algebra, trigonometria, statistica, problemi matematici
+       - NON-MATH: tutto il resto (medicina, storia, geografia, sport, etc.)
+    3. Rispondi SOLO con: "MATH" o "NON-MATH"
+    4. Non aggiungere spiegazioni
+    
+    ESEMPI:
+    - "Calcola 5+5" → MATH
+    - "Area di un cerchio con raggio 3" → MATH  
+    - "Risolvi x² + 2x - 3 = 0" → MATH
+    - "Sintomi dell'influenza" → NON-MATH
+    - "Capitale della Francia" → NON-MATH
+    - "Come funziona il GPS" → NON-MATH
+  expected_output: >
+    Una singola parola: "MATH" o "NON-MATH"
+  agent: math_detector
+
+classify_nonmath_domain_task:
+  description: >
+    Classifica questa domanda NON-matematica: "{question}"
+
+    ISTRUZIONI:
+    1. La domanda è già stata identificata come NON-matematica
+    2. Determina se riguarda:
+       - MEDICAL: salute, sintomi, malattie, farmaci, diagnosi, terapie, anatomia, fisiologia
+       - GENERAL: tutto il resto (tecnologia, storia, geografia, sport, intrattenimento, etc.)
+    3. Rispondi SOLO con: "MEDICAL" o "GENERAL"
+    4. Non aggiungere spiegazioni
+    
+    ESEMPI:
+    - "Sintomi dell'influenza" → MEDICAL
+    - "Come curare il diabete" → MEDICAL
+    - "Capitale della Francia" → GENERAL  
+    - "Chi ha vinto i mondiali 2022" → GENERAL
+    - "Come funziona internet" → GENERAL
+  expected_output: >
+    Una singola parola: "MEDICAL" o "GENERAL"
+  agent: domain_classifier

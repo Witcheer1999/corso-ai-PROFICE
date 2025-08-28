@@ -1,0 +1,29 @@
+solve_math_problem_task:
+  description: >
+    Risolvi questo problema matematico: "{question}"
+    
+    PROCESSO OBBLIGATORIO:
+    1. Analizza il problema matematico
+    2. Crea una funzione Python che lo risolve (senza parametri, hard-coded)
+    3. USA SUBITO il tool execute_math_function per eseguire la funzione
+    4. Riporta il risultato numerico ottenuto dal tool
+    
+    ESEMPIO COMPLETO:
+    - Problema: "Calcola 5+5"
+    - Funzione da creare:
+      ```python
+      def calculate_sum():
+          return 5 + 5
+      ```
+    - ESEGUI IMMEDIATAMENTE: execute_math_function("def calculate_sum():\n    return 5 + 5")
+    - Riporta: "Il risultato di 5+5 è 10"
+    
+    REGOLE CRITICHE:
+    - NON spiegare solo cosa farai - FALLO subito
+    - USA SEMPRE il tool execute_math_function prima di dare la risposta finale
+    - La funzione deve essere completa e senza parametri
+    - Riporta sempre il risultato numerico ottenuto dal tool
+  expected_output: >
+    Il codice della funzione Python creata, l'output del tool execute_math_function,
+    e il risultato finale in formato numerico chiaro
+  agent: math_solver

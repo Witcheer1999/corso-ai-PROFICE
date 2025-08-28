@@ -2,30 +2,32 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
+from ragflow.tools.math_tool import execute_math_function  # Import del nostro tool
 
 @CrewBase
-class ClassifierCrew():
-    """Crew per classificare il dominio delle domande utente"""
+class MathCrew():
+    """Crew per risolvere problemi matematici"""
 
     agents: List[BaseAgent]
     tasks: List[Task]
 
     @agent
-    def domain_classifier(self) -> Agent:
+    def math_solver(self) -> Agent:
         return Agent(
-            config=self.agents_config['domain_classifier'],
+            config=self.agents_config['math_solver'],
+            tools=[execute_math_function],  # Aggiungiamo il tool
             verbose=True
         )
     
-    @task
-    def classify_question_task(self) -> Task:
+    @task  
+    def solve_math_problem_task(self) -> Task:
         return Task(
-            config=self.tasks_config['classify_question_task']
+            config=self.tasks_config['solve_math_problem_task']
         )
     
     @crew
     def crew(self) -> Crew:
-        """Creates the classifier crew"""
+        """Creates the math solver crew"""
         return Crew(
             agents=self.agents,
             tasks=self.tasks,

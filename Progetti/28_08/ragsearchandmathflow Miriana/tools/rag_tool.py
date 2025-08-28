@@ -39,11 +39,7 @@ class RAGSystem:
         api_key = os.getenv("AZURE_API_KEY")
         endpoint = os.getenv("AZURE_API_BASE")
         deployment = os.getenv("MODEL")
-        
-        # Rimuovi il prefisso "azure/" se presente
-        if deployment and deployment.startswith("azure/"):
-            deployment = deployment.replace("azure/", "")
-        
+
         return AzureChatOpenAI(
             deployment_name=deployment,
             openai_api_version="2024-02-15-preview",
