@@ -1,0 +1,12 @@
+calculate_sum_task:
+  description: >
+    Esegui la somma dei numeri: {num1} + {num2}
+
+    ISTRUZIONI:
+    1. Usa il tool add_numbers per sommare {num1} e {num2}
+    2. Verifica che il risultato sia corretto
+    3. Presenta il risultato in modo chiaro e formattato
+    4. Includi una breve spiegazione dell'operazione eseguita
+  expected_output: >
+    Fornisci il risultato della somma {num1} + {num2} con una spiegazione chiara.
+  agent: math_specialist

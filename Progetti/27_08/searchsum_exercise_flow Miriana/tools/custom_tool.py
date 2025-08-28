@@ -23,3 +23,9 @@ def search_web(query: str) -> str:
         return formatted_results
     except Exception as e:
         return f"Errore durante la ricerca: {str(e)}"
+    
+
+@tool("Add Numbers Tool")
+def add_numbers(a: int, b: int) -> int:
+    """Calcola la somma di due numeri interi e ritorna il risultato."""
+    return a + b
