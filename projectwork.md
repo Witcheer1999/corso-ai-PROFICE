@@ -47,6 +47,7 @@ Ogni gruppo deve consegnare:
 
 * Repository GitHub con codice funzionante.
 * Documentazione in formato Markdown/PDF.
+* EU AI Act Document
 * Breve relazione (max 5 pagine o slide) con:
 
   * Scelte architetturali,
