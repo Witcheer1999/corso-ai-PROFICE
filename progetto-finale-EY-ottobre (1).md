@@ -71,7 +71,7 @@ Ogni gruppo dovrà consegnare:
 1. **Codice funzionante** (CrewAI + RAG + valutazione).
 2. **README tecnico** con architettura e istruzioni.
 3. **Documento EU AI Act**.
-4. **Breve presentazione (5-7 min)** del progetto:
+4. **Breve presentazione (15 min)** del progetto:
 
    * Descrizione obiettivo
    * Demo rapida
@@ -84,4 +84,5 @@ Ogni gruppo dovrà consegnare:
 2. **ARCHITETTURA E FUNZIONAMENTO CREWAI** 30%
 3. **DOCUMENTAZIONE E EU AI ACT** 20%
 4. **BONUSES** 10%
+
 
