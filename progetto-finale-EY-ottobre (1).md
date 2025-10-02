@@ -46,7 +46,7 @@ Realizzare un **assistente AI specializzato in un dominio scelto** (es. turismo,
   * Istruzioni di installazione ed esecuzione
   * Scelte progettuali e trade-off
 
-* Scrivere un **documento EU AI Act** (max 2-3 pagine):
+* Scrivere un **documento EU AI Act**:
 
   * Livello di rischio del sistema (es. basso, limitato, alto → con motivazione)
   * Requisiti di trasparenza e gestione bias
@@ -84,5 +84,6 @@ Ogni gruppo dovrà consegnare:
 2. **ARCHITETTURA E FUNZIONAMENTO CREWAI** 30%
 3. **DOCUMENTAZIONE E EU AI ACT** 20%
 4. **BONUSES** 10%
+
 
 
