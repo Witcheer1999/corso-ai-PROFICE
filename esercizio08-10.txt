@@ -1,0 +1,2 @@
+Trasformare il progetto finale (o una simulazione di progetto python con chiamata a db qdrant) 
+in un progetto gestito con dockerfile e dockercompose in modo da automatizzare il processo di avvio
